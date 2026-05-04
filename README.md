@@ -4,6 +4,13 @@
 
 This official plugin provides a seamless bridge between your Anotum library and your [Obsidian](https://obsidian.md) vault, turning your highlights into active, searchable Markdown notes.
 
+## Disclosures
+An anotum account with an active trial or a subscription are required to use this plugin.
+This plugin communicates solely with `https://api.anotum.com` and only to pull your highlights.
+We do not collect any telemetry via this plugin.
+
+You can read our full privacy policy [here](https://anotum.com/privacy) and our terms of service [here](https://anotum.com/terms).
+
 ## How to use
 
 This plugin requires an active subscription or a trial to anotum. Once the plugin is installed, go into the settings and select "Anotum Account: Connect".
