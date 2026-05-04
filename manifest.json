@@ -1,0 +1,10 @@
+{
+  "id": "anotum",
+  "name": "Anotum",
+  "version": "1.0.0",
+  "minAppVersion": "1.0.0",
+  "description": "Sync your Anotum highlights and notes to Obsidian",
+  "author": "Anotum",
+  "authorUrl": "https://anotum.com",
+  "isDesktopOnly": false
+}

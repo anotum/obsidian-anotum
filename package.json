@@ -1,0 +1,26 @@
+{
+  "name": "obsidian-anotum",
+  "version": "1.0.0",
+  "description": "Sync Anotum highlights and notes to Obsidian",
+  "main": "main.js",
+  "scripts": {
+    "dev": "bun run build.ts",
+    "build": "bun run build.ts --production",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "escape-string-regexp": "^5.0.0",
+    "graphql": "^16.9.0",
+    "graphql-request": "^6.1.0",
+    "jwt-decode": "^4.0.0",
+    "nunjucks": "^3.2.4",
+    "sanitize-filename": "^1.6.4",
+    "yaml": "^2.6.0"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/nunjucks": "^3.2.6",
+    "obsidian": "latest",
+    "typescript": "^5.5.0"
+  }
+}
