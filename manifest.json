@@ -3,7 +3,7 @@
   "name": "Anotum",
   "version": "1.0.0",
   "minAppVersion": "1.0.0",
-  "description": "Sync your Anotum highlights and notes to Obsidian",
+  "description": "Sync your Anotum highlights and notes.",
   "author": "Anotum",
   "authorUrl": "https://anotum.com",
   "isDesktopOnly": false
