@@ -35,7 +35,7 @@ export default class AnotumPlugin extends Plugin {
 		this.registerObsidianProtocolHandler("anotum-auth", (params) => {
 			this.handleAuthCallback(params).catch((e) => {
 				console.error("Anotum auth callback failed:", e);
-				new Notice("Anotum: Authentication failed");
+				new Notice("Anotum authentication failed");
 			});
 		});
 
@@ -72,7 +72,7 @@ export default class AnotumPlugin extends Plugin {
 	): Promise<void> {
 		const { access_token, refresh_token } = params;
 		if (!access_token || !refresh_token) {
-			new Notice("Anotum: Authentication failed — missing tokens");
+			new Notice("Anotum authentication failed, missing tokens");
 			return;
 		}
 
@@ -83,16 +83,16 @@ export default class AnotumPlugin extends Plugin {
 				expires_at: getExpiresAt(access_token),
 			};
 			await this.saveState();
-			new Notice("Anotum: Connected successfully");
+			new Notice("Anotum connected successfully");
 		} catch {
-			new Notice("Anotum: Authentication failed — invalid token");
+			new Notice("Anotum authentication failed, invalid token");
 		}
 	}
 
 	startSyncInterval(): void {
 		this.stopSyncInterval();
 		const ms = this.state.settings.sync_interval_minutes * 60 * 1000;
-		this.syncIntervalId = window.setInterval(() => this.runSync(), ms);
+		this.syncIntervalId = window.setInterval(() => { void this.runSync(); }, ms);
 		this.registerInterval(this.syncIntervalId);
 	}
 
@@ -109,7 +109,7 @@ export default class AnotumPlugin extends Plugin {
 
 	async runSync(): Promise<void> {
 		if (!this.state.auth) {
-			new Notice("Anotum: Not authenticated. Please connect first.");
+			new Notice("Anotum not authenticated, please connect first");
 			return;
 		}
 
@@ -131,10 +131,10 @@ export default class AnotumPlugin extends Plugin {
 				this.state.sync_state.last_cursor = newCursor;
 			}
 			await this.saveState();
-			new Notice("Anotum: Sync complete");
+			new Notice("Anotum sync complete");
 		} catch (e) {
 			console.error("Anotum sync failed:", e);
-			new Notice("Anotum: Sync failed. Check console for details.");
+			new Notice("Anotum sync failed, check console for details");
 		}
 	}
 }

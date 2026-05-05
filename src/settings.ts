@@ -27,7 +27,7 @@ export class AnotumSettingsTab extends PluginSettingTab {
 					});
 				} else {
 					btn
-						.setButtonText("Connect to Anotum")
+						.setButtonText("Connect")
 						.setCta()
 						.onClick(() => {
 							const callback = encodeURIComponent("obsidian://anotum-auth");
@@ -68,18 +68,11 @@ export class AnotumSettingsTab extends PluginSettingTab {
 					}),
 			);
 
-		new Setting(containerEl)
+		const templateSetting = new Setting(containerEl)
 			.setName("Highlight template")
-			.setDesc(
-				"Template for each highlight. " +
-					"Variables: {{ highlight }}, {{ color }}, {{ id }}, {{ note }}, {{ chapter }}, {{ index }}. " +
-					"Filter: {{ date | formatDate }}. " +
-					"Use {% if note %}\\n{{ note }}{% endif %} to embed notes inside the block. " +
-					"Include ^hl-{{ id }} so obsidian can link to the block.",
-			)
 			.addTextArea((text) => {
 				text.inputEl.rows = 8;
-				text.inputEl.style.width = '100%';
+				text.inputEl.setCssStyles({ width: "100%" });
 				return text
 					.setValue(this.plugin.state.settings.highlight_template)
 					.onChange(async (value) => {
@@ -89,6 +82,13 @@ export class AnotumSettingsTab extends PluginSettingTab {
 						}
 					});
 			});
+		templateSetting.descEl.createDiv({ text: "Template for each highlight." });
+		templateSetting.descEl.createDiv({ text: "Variables: {{ highlight }}, {{ color }}, {{ id }}, {{ note }}, {{ chapter }}, {{ index }}." });
+		templateSetting.descEl.createDiv({ text: "Filter: {{ date | formatDate }}." });
+		templateSetting.descEl.createDiv({ text: "Use {% if note %} ... {% endif %} to embed notes inside the block." });
+		templateSetting.descEl.createDiv({ text: "Include ^hl-{{ id }} so Obsidian can link to the block." });
+		templateSetting.settingEl.setCssStyles({ flexDirection: "column", alignItems: "flex-start" });
+		templateSetting.controlEl.setCssStyles({ width: "100%" });
 
 		new Setting(containerEl)
 			.setName("Development mode")
@@ -112,7 +112,7 @@ export class AnotumSettingsTab extends PluginSettingTab {
 						await this.plugin.saveState();
 					}));
 			new Setting(containerEl)
-				.setName("Dev Frontend URL")
+				.setName("Dev frontend URL")
 				.addText((text) => text
 					.setValue(this.plugin.state.settings.dev_frontend_url)
 					.onChange(async (value) => {
