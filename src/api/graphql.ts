@@ -52,18 +52,16 @@ const REFRESH_TOKEN_MUTATION = gql`
 `;
 
 const obsidianFetch = async (
-	url: RequestInfo | URL,
+	req: RequestInfo | URL,
 	init?: RequestInit,
 ): Promise<Response> => {
-	const options = {
-		url: url.toString(),
+	const res = await requestUrl({
+		url: req instanceof Request ? req.url : req.toString(),
 		method: init?.method || "POST",
 		headers: init?.headers as Record<string, string>,
 		body: init?.body as string,
 		throw: false,
-	};
-
-	const res = await requestUrl(options);
+	});
 
 	return new Response(res.arrayBuffer, {
 		status: res.status,
