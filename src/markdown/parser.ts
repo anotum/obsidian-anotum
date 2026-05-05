@@ -157,7 +157,7 @@ function insertIntoSection(
 		const targetIndex = Math.min(index - 1, ends.length - 1);
 		const pivot = ends.at(targetIndex)!;
 		const [matchText] = pivot;
-		const insertAt = pivot.index! + matchText.length;
+		const insertAt = pivot.index + matchText.length;
 		const after = section.slice(insertAt);
 
 		return [
@@ -361,6 +361,6 @@ export function extractHighlightChapter(
 		return null;
 	}
 
-	const [_, chapter] = lastMatch;
+	const [, chapter] = lastMatch;
 	return chapter;
 }
