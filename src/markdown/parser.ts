@@ -151,12 +151,14 @@ function insertIntoSection(
 	index: number,
 	block: string,
 ): string {
-	const ends = [...section.matchAll(/%% anotum-hl-end: .+? %%/g)];
+	const ends: RegExpExecArray[] = [
+		...section.matchAll(/%% anotum-hl-end: .+? %%/g),
+	];
 
 	if (index > 0 && ends.length > 0) {
 		const targetIndex = Math.min(index - 1, ends.length - 1);
 		const pivot = ends.at(targetIndex)!;
-		const [matchText] = pivot;
+		const [matchText = ""] = pivot;
 		const insertAt = pivot.index + matchText.length;
 		const after = section.slice(insertAt);
 
@@ -354,7 +356,9 @@ export function extractHighlightChapter(
 	}
 
 	const beforeHighlight = content.slice(0, hlPos);
-	const matches = [...beforeHighlight.matchAll(/%% anotum-chapter: (.+?) %%/g)];
+	const matches: RegExpExecArray[] = [
+		...beforeHighlight.matchAll(/%% anotum-chapter: (.+?) %%/g),
+	];
 	const lastMatch = matches.at(-1);
 
 	if (!lastMatch) {
@@ -362,5 +366,5 @@ export function extractHighlightChapter(
 	}
 
 	const [, chapter] = lastMatch;
-	return chapter;
+	return chapter ?? null;
 }

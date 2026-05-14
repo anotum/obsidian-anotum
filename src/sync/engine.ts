@@ -39,18 +39,19 @@ export class SyncEngine {
 	}
 
 	private groupByBook(changes: AnnotationChange[]): Map<string, BookChanges> {
-		const byBook = Map.groupBy(
-			changes.filter((c) => c.annotation !== null),
-			(c) => c.annotation!.book.id,
+		type WithAnnotation = AnnotationChange & { annotation: Annotation };
+		const withAnnotation = changes.filter(
+			(c): c is WithAnnotation => c.annotation !== null,
 		);
+		const byBook = Map.groupBy(withAnnotation, (c) => c.annotation.book.id);
 		return new Map(
 			[...byBook.entries()].map(([bookId, grouped]) => [
 				bookId,
 				{
-					book: grouped[0].annotation!.book,
+					book: grouped[0].annotation.book,
 					upserts: grouped
 						.filter((c) => c.action === "UPSERT")
-						.map((c) => c.annotation!),
+						.map((c) => c.annotation),
 					deletes: grouped
 						.filter((c) => c.action === "DELETE")
 						.map((c) => c.id),

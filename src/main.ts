@@ -55,7 +55,7 @@ export default class AnotumPlugin extends Plugin {
 	}
 
 	async loadState(): Promise<void> {
-		const data = await this.loadData();
+		const data = (await this.loadData()) as Partial<PluginState> | null;
 		this.state = {
 			auth: data?.auth ?? null,
 			sync_state: data?.sync_state ?? { last_cursor: null },

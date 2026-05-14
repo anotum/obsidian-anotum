@@ -120,7 +120,7 @@ export class ApiClient {
 			if (!isRateLimited || attempt >= MAX_RETRIES) throw error;
 
 			await new Promise((resolve) =>
-				setTimeout(resolve, BASE_BACKOFF_MS * Math.pow(2, attempt)),
+				window.setTimeout(resolve, BASE_BACKOFF_MS * Math.pow(2, attempt)),
 			);
 			return this.requestWithRetry(document, variables, attempt + 1);
 		}

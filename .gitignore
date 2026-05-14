@@ -5,3 +5,4 @@ data.json
 bun.lockb
 dist/
 .obsidian/
+**/.DS_Store
